@@ -11,9 +11,7 @@ exports.getRecords = async (req, res, next) => {
 };
 
 
-//   const records = db.get('records').value();
-//   res.status(200).send(records);
-// };
+
 
 exports.addRecord = async (req, res, next) => {
   // const record = req.body;
@@ -23,12 +21,7 @@ exports.addRecord = async (req, res, next) => {
     res.status(200).send(record)
   } catch (error) {
     next(error)
-    // db.get('records')
-    //   .push(record)
-    //   .last()
-    //   .assign({ id: Date.now().toString() })
-    //   .write();
-    // res.status(200).send(record);
+
   }
 };
 
@@ -42,13 +35,7 @@ exports.getRecord = async (req, res, next) => {
 
   } catch (error) {
     next(error)
-    // const { id } = req.params;
-    // const record = db
-    //   .get('records')
-    //   .find({ id })
-    //   .value();
 
-    // res.status(200).send(record);
   }
 }
 
@@ -59,13 +46,7 @@ exports.deleteRecord = async (req, res, next) => {
   } catch (error) {
     next(error)
   }
-  // const { id } = req.params;
-  // const record = db
-  //   .get('records')
-  //   .remove({ id })
-  //   .write();
 
-  // res.status(200).send(record);
 };
 
 exports.updateRecord = async (req, res, next) => {
@@ -77,14 +58,5 @@ exports.updateRecord = async (req, res, next) => {
   } catch (error) {
     next(error)
   }
-  // const { id } = req.params;
-  // const data = req.body;
 
-  // const record = db
-  //   .get('records')
-  //   .find({ id })
-  //   .assign(data)
-  //   .write();
-
-  // res.status(200).send(record);
 };

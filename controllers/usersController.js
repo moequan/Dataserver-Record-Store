@@ -25,11 +25,7 @@ exports.addUser = async (req, res, next) => {
   } catch (error) {
     next(error)
   }
-  // db.get('users')
-  //   .push(user)
-  //   .last()
-  //   .assign({ id: Date.now().toString() })
-  //   .write();
+
 };
 
 exports.getUser = async (req, res, next) => {
@@ -42,13 +38,7 @@ exports.getUser = async (req, res, next) => {
   } catch (error) {
     next(error)
   }
-  // const { id } = req.params;
-  // const user = db
-  //   .get('users')
-  //   .find({ id })
-  //   .value();
 
-  // res.status(200).send(user);
 };
 
 exports.deleteUser = async (req, res, next) => {
@@ -59,11 +49,7 @@ exports.deleteUser = async (req, res, next) => {
     next(error)
   }
 
-  // const { id } = req.params;
-  // const user = db
-  //   .get('users')
-  //   .remove({ id })
-  //   .write();
+
 
   res.status(200).send(user);
 };
@@ -74,18 +60,9 @@ exports.updateUser = async (req, res, next) => {
     const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!user) throw new createError.NotFound();
     res.status(200).send(user);
-    
+
   } catch (error) {
     next(error)
   }
-  // const { id } = req.params;
-  // const data = req.body;
-
-  // const user = db
-  //   .get('users')
-  //   .find({ id })
-  //   .assign(data)
-  //   .write();
-
 
 };

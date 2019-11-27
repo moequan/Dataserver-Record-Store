@@ -30,7 +30,10 @@ const UserSchema = new Schema({
     required: true,
     unique: true
   },
-  adress: Adress
+  adress:{
+    type: Adress,
+    required: true
+  }
 });
 
 

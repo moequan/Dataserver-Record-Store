@@ -1,68 +1,58 @@
-
-const User = require("../models/User");
-const createError = require("http-errors")
+const User = require('../models/User');
+const createError = require('http-errors');
 
 exports.getUsers = async (req, res, next) => {
-  // const users = db.get('users').value();
   try {
-    const users = await User.find();
+    const users = await User.find()
+      .select('-password -__v')
+      .sort('lastName')
+      .limit(5);
     res.status(200).send(users);
-  } catch (error) {
-    next(error)
+  } catch (e) {
+    next(e);
   }
-};
-
-exports.addUser = async (req, res, next) => {
-  try {
-    const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(422).json({ errors: errors.array() });
-  }
-
-    const user = new User(req.body);
-    await user.save();
-    res.status(200).send(user)
-  } catch (error) {
-    next(error)
-  }
-
 };
 
 exports.getUser = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const user = await User.findById(id);
+    const user = await User.findById(req.params.id);
     if (!user) throw new createError.NotFound();
     res.status(200).send(user);
-
-  } catch (error) {
-    next(error)
+  } catch (e) {
+    next(e);
   }
-
 };
 
 exports.deleteUser = async (req, res, next) => {
   try {
     const user = await User.findByIdAndDelete(req.params.id);
-    res.status(200).send(user)
-  } catch (error) {
-    next(error)
+    if (!user) throw new createError.NotFound();
+    res.status(200).send(user);
+  } catch (e) {
+    next(e);
   }
-
-
-
-  res.status(200).send(user);
 };
 
 exports.updateUser = async (req, res, next) => {
-
+  console.log(req.body);
   try {
-    const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true
+    });
     if (!user) throw new createError.NotFound();
     res.status(200).send(user);
-
-  } catch (error) {
-    next(error)
+  } catch (e) {
+    next(e);
   }
+};
 
+exports.addUser = async (req, res, next) => {
+  try {
+    const user = new User(req.body);
+    await user.save();
+    res.status(200).send(user);
+  } catch (e) {
+    next(e);
+  }
 };

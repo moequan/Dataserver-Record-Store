@@ -3,8 +3,8 @@ const { Schema } = mongoose;
 
 const OrderSchema = new Schema({
   userId: {
-    type: String,
-    required: true
+    type: Schema.Types.ObjectId,
+    ref: 'Record'
   },
   date: {
     type: Date,

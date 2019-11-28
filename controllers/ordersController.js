@@ -14,7 +14,7 @@ exports.getOrder = async (req, res, next) => {
   try {
     const order = await Order.findById(req.params.id).populate(
       'records.record'
-    );
+    ).populate("user","userName  email");
     if (!order) throw new createError.NotFound();
     res.status(200).send(order);
   } catch (e) {
